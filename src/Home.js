@@ -9,7 +9,7 @@ export default class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            page: 'search',
+            page: '',
             searchWord: '',
             videos:[],
             selectedVideo: null,
@@ -67,6 +67,12 @@ export default class Main extends React.Component {
             
     }
 
+    handleReturnClick = () => {
+        this.setState({
+            page: ''
+        })
+    }
+
     handleVideoSelect = (video) => {
         this.setState({
             selectedVideo: video
@@ -74,27 +80,28 @@ export default class Main extends React.Component {
     }
 
     render() {
-        if(this.state.page === 'search'){
+        if(this.state.page === 'videoList'){
+            return (
+                <div>                    
+                    <VideoList videoList={this.state.videos} handelVideoSelect = {this.handleVideoSelect} return={this.handleReturnClick}/>
+                </div> 
+                
+            );
+        }else{
             return (
                 <div>
                     <h1>Search for Videos</h1>
-    
+
                     <div>
                         <input
                             id="searchWord"
                             onChange={this.onInputChange}></input>
                     </div>
-    
+
                     <div>
                         <button onClick={this.onSubmitButtonClick}>Submit</button>
                     </div>
-    
-                </div>
-            );
-        }else{
-            return (
-                <div>                    
-                    <VideoList videoList={this.state.videos} handelVideoSelect = {this.handleVideoSelect}/>
+
                 </div>             
             )
         }

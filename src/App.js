@@ -12,7 +12,12 @@ function App() {
       <nav className="navbar navbar">
         <ul className="nav navbar-nav">
           <li>
-            <Link to="/">Home</Link>
+            <Link to={{
+              pathname:'/',
+              state: {
+                page: ''
+              }
+            }}>Home</Link>
           </li>
           <li>
             <Link to="/login">Log In/Sign Out</Link>
@@ -23,7 +28,7 @@ function App() {
         </ul>
       </nav>
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" render={() => <Home page="" />} />
         <Route path="/login" component={Detail} />
       </Switch>
     </div>

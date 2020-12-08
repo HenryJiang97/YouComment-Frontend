@@ -1,7 +1,7 @@
 import React from 'react';
 import Detail from './Detail';
 import ListGroup from 'react-bootstrap/ListGroup';
-
+import Button from 'react-bootstrap/Button';
 
 class VideoList extends React.Component {
     constructor(props) {
@@ -40,7 +40,7 @@ class VideoList extends React.Component {
 
                     }    
                 </ListGroup>
-                
+                <Button onClick = {this.props.return}>Back</Button>
             </div>
         );
         
