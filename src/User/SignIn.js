@@ -25,7 +25,7 @@ export default class SignIn extends Component {
         this.setState({
             email: "",
             name: "",
-            password: ""
+            password: "",
         });
         document.getElementById("email").value = "";
         document.getElementById("name").value = "";
@@ -37,7 +37,7 @@ export default class SignIn extends Component {
     }
 
     handleSignUpClick() {
-        createUserWithEmailAndPassword(this.state.email, this.state.password);
+        createUserWithEmailAndPassword(this.state.email, this.state.password, this.state.name);
         this.restoreStates();
     }
 
@@ -45,6 +45,7 @@ export default class SignIn extends Component {
         signInWithEmailAndPassword(this.state.email, this.state.password);
         this.restoreStates();
     }
+
 
     render() {
         return (
@@ -74,8 +75,6 @@ export default class SignIn extends Component {
                 </div>
                 
             </div>
-            
-
         );
     }
 }

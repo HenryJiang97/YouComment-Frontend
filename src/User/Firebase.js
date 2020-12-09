@@ -1,6 +1,9 @@
 import app from 'firebase/app';
 import 'firebase/auth';
+import Axios from 'axios';
+import {userApiPrefix} from '../Config';
 
+// Firebase Auth configuration
 const config = {
     apiKey: "AIzaSyBolx_yj--B8k_kHJu9vbfsP1NYSZt6Cqk",
     authDomain: "youcomment-20456.firebaseapp.com",
@@ -10,17 +13,34 @@ const config = {
     appId: "1:420075115488:web:a1d1628169338a65291185",
     measurementId: "G-7143M9XTV5"
 };
-
 app.initializeApp(config);
 let auth = app.auth();
- 
-// Firebase Auth APIs
 
+
+// Add new user to MongoDB
+function addNewUserToDB(id, email, name) {
+    Axios.post(userApiPrefix, {
+        id: id,
+        email: email,
+        name: name,
+    })
+    .then(function(response) {
+        console.log("Added user to the db");
+    })
+    .catch(function(error) {
+        console.log("Error adding user to db");
+    });
+}
+ 
+
+// Firebase Auth APIs
 // Create user with email and password
-let createUserWithEmailAndPassword = (email, password) => {
+let createUserWithEmailAndPassword = (email, password, name) => {
     auth.createUserWithEmailAndPassword(email, password)
     .then((user) => {
         let info = `UID: ${user.user.uid}\nEmail: ${user.user.email}`;
+        // TODO: How to throw error?
+        addNewUserToDB(user.user.uid, email, name);
         alert(`Signed up\nUser Info:\n${info}`);
     })
     .catch((error) => {
