@@ -24,7 +24,7 @@ let createUserWithEmailAndPassword = (email, password) => {
         alert(`Signed up\nUser Info:\n${info}`);
     })
     .catch((error) => {
-        console.log("Error signing up", error.code, error.message);
+        alert("Error signing up", error.code, error.message);
     });
 }
 
@@ -36,7 +36,7 @@ let signInWithEmailAndPassword = (email, password) => {
         alert(`Signed in\nUser Info:\n${info}`);
     })
     .catch((error) => {
-        console.log("Error signing in", error.code, error.message);
+        alert("Error signing in", error.code, error.message);
     });
 }
 
@@ -45,7 +45,14 @@ let signOut = () => {
     auth.signOut().then(function() {
         alert("Signed out");
     }).catch(function(error) {
-        console.log("Error signing out", error.code, error.message);
+        alert("Error signing out", error.code, error.message);
+    });
+}
+
+// Login status listener
+let statusListener = (userclass) => {
+    auth.onAuthStateChanged(function(user) {
+        userclass.setState({user: user});
     });
 }
 
@@ -58,5 +65,6 @@ export {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
+    statusListener,
     resetPassword
 }

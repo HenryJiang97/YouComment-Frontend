@@ -3,9 +3,7 @@ import React, {Component} from 'react';
 // Firebase authentication module
 import {
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    resetPassword
+    signInWithEmailAndPassword
 } from './Firebase';
 
 
@@ -44,6 +42,7 @@ export default class SignIn extends Component {
     }
 
     handleSignInClick() {
+        signInWithEmailAndPassword(this.state.email, this.state.password);
         this.restoreStates();
     }
 

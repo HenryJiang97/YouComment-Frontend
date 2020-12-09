@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 
 import Profile from './Profile';
+import SignIn from './SignIn';
 
-// Firebase authentication module
-import Firebase from './Firebase';
-import 'firebase/analytics';
-import 'firebase/auth';
-import 'firebase/firestore';
-
+import {
+    statusListener,
+} from './Firebase';
 
 export default class User extends Component {
     constructor(props) {
@@ -15,27 +13,22 @@ export default class User extends Component {
         this.state = {
             user: null
         };
-        this.getSignInStatus = this.getSignInStatus.bind(this);
+        this.handleStatusChange();
+        this.handleStatusChange = this.handleStatusChange.bind(this);
     }
 
-
-    getSignInStatus() {
-
-        return false;
+    handleStatusChange() {
+        statusListener(this);
     }
 
     render() {
-        
-
         return (
-            this.state.user ? 
-            <Profile /> : 
-
-            <div>
-                <h2>You're not signing in yet.</h2>
-                
-            </div>
-            
+            (
+                this.state.user ? 
+                    <Profile user={this.state.user}/> 
+                : 
+                    <SignIn />
+            )
         );
     }
 }
