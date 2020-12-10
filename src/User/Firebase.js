@@ -1,0 +1,90 @@
+import app from 'firebase/app';
+import 'firebase/auth';
+import Axios from 'axios';
+import {userApiPrefix} from '../Config';
+
+// Firebase Auth configuration
+const config = {
+    apiKey: "AIzaSyBolx_yj--B8k_kHJu9vbfsP1NYSZt6Cqk",
+    authDomain: "youcomment-20456.firebaseapp.com",
+    projectId: "youcomment-20456",
+    storageBucket: "youcomment-20456.appspot.com",
+    messagingSenderId: "420075115488",
+    appId: "1:420075115488:web:a1d1628169338a65291185",
+    measurementId: "G-7143M9XTV5"
+};
+app.initializeApp(config);
+let auth = app.auth();
+
+
+// Add new user to MongoDB
+function addNewUserToDB(id, email, name) {
+    Axios.post(userApiPrefix, {
+        id: id,
+        email: email,
+        name: name,
+    })
+    .then(function(response) {
+        console.log("Added user to the db");
+    })
+    .catch(function(error) {
+        console.log("Error adding user to db");
+    });
+}
+ 
+
+// Firebase Auth APIs
+// Create user with email and password
+let createUserWithEmailAndPassword = (email, password, name) => {
+    auth.createUserWithEmailAndPassword(email, password)
+    .then((user) => {
+        let info = `UID: ${user.user.uid}\nEmail: ${user.user.email}`;
+        // TODO: How to throw error?
+        addNewUserToDB(user.user.uid, email, name);
+        alert(`Signed up\nUser Info:\n${info}`);
+    })
+    .catch((error) => {
+        alert("Error signing up", error.code, error.message);
+    });
+}
+
+// Sign in with email and password
+let signInWithEmailAndPassword = (email, password) => {
+    auth.signInWithEmailAndPassword(email, password)
+    .then((user) => {
+        let info = `UID: ${user.user.uid}\nEmail: ${user.user.email}`
+        alert(`Signed in\nUser Info:\n${info}`);
+    })
+    .catch((error) => {
+        alert("Error signing in", error.code, error.message);
+    });
+}
+
+// Sign out
+let signOut = () => {
+    auth.signOut().then(function() {
+        alert("Signed out");
+    }).catch(function(error) {
+        alert("Error signing out", error.code, error.message);
+    });
+}
+
+// Login status listener
+let statusListener = (userclass) => {
+    auth.onAuthStateChanged(function(user) {
+        userclass.setState({user: user});
+    });
+}
+
+// Password reset
+let resetPassword = (newPassword) => {
+    this.auth.resetPassword(newPassword);
+}
+
+export {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    statusListener,
+    resetPassword
+}

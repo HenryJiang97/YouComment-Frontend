@@ -1,7 +1,7 @@
 import './App.css';
 import { Link, Route, Switch } from "react-router-dom";
 import Home from './Home';
-import Detail from './Detail';
+import User from './User/User'
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
             }}>Home</Link>
           </li>
           <li>
-            <Link to="/login">Log In/Sign Out</Link>
+            <Link to="/user">Log In/Sign Out</Link>
           </li>
           <li>
             <Link to="/profile">User profile</Link>
@@ -29,7 +29,7 @@ function App() {
       </nav>
       <Switch>
         <Route exact path="/" render={() => <Home page="" />} />
-        <Route path="/login" component={Detail} />
+        <Route path="/user" component={User} />
       </Switch>
     </div>
   );
