@@ -1,5 +1,5 @@
-let commentApiPrefix = "http://localhost:3000/api/comment/";
-let userApiPrefix = "http://localhost:3000/api/user/";
+let commentApiPrefix = "https://you-comment-backend.herokuapp.com/api/comment/";
+let userApiPrefix = "https://you-comment-backend.herokuapp.com/api/user/";
 
 export {
     commentApiPrefix,
