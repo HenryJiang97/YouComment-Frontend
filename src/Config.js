@@ -1,7 +1,7 @@
-let commentPrefix = "http://localhost:3000/api/comment/";
+let commentApiPrefix = "http://localhost:3000/api/comment/";
 let userApiPrefix = "http://localhost:3000/api/user/";
 
 export {
-    commentPrefix,
+    commentApiPrefix,
     userApiPrefix
 }

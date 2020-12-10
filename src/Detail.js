@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table';
 import CommentList from './CommentList';
 import Axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import {commentPrefix} from './Config';
+import {commentApiPrefix} from './Config';
 
 class Detail extends React.Component {
     constructor(props) {
@@ -47,7 +47,7 @@ class Detail extends React.Component {
     postComment(content, rating, videoId) {
         const that = this;
         Axios.post(
-            commentPrefix, 
+            commentApiPrefix, 
             {
               id: 'user1', //need to change later
               rating: rating,
