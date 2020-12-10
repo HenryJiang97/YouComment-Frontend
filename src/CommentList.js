@@ -3,7 +3,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Comment from './Comment';
 import Axios from 'axios';
 
-const prefix = 'http://localhost:3000/api/comment/';
+const prefix = 'https://you-comment-backend.herokuapp.com/api/comment/';
 
 class CommentList extends React.Component {
     constructor(props) {

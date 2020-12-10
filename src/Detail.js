@@ -5,7 +5,7 @@ import CommentList from './CommentList';
 import Axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-const prefix = 'http://localhost:3000/api/comment/';
+const prefix = 'https://you-comment-backend.herokuapp.com/api/comment/';
 
 class Detail extends React.Component {
     constructor(props) {
