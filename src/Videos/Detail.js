@@ -109,7 +109,7 @@ class Detail extends React.Component {
             that.updateCommentList();
         })
         .catch(function(error) {
-            console.log("Delete comment error");
+            alert("Delete comment error");
         });
     }
 
