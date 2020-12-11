@@ -1,11 +1,14 @@
 import React from 'react';
 import Axios from 'axios';
-import VideoList from './VideoList.js';
+import { Link, withRouter} from 'react-router-dom'
 
-const baseUrl = 'https://www.googleapis.com/youtube/v3/search';
-const APIkey = 'AIzaSyCB0KooQ52eIZKR_kieRhEbrcGvbfBH-lg';
+import {
+    youtubeApiKey as APIkey,
+    youtubeBaseUrl as baseUrl
+} from '../Config';
 
-export default class Main extends React.Component {
+
+class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,20 +19,15 @@ export default class Main extends React.Component {
         };
         
         this.onInputChange = this.onInputChange.bind(this);
-        this.onSubmitButtonClick = this.onSubmitButtonClick.bind(this);
     }
 
     onInputChange(evt) {
         this.setState({ searchWord: evt.target.value });
     }
 
-    onSubmitButtonClick() {
-        this.getYouTubeVideos();
-    }
-
     getYouTubeVideos(){
         const that = this;
-        const searchWord = this.state.searchWord;
+        const searchWord = this.props.location.query.searchWord;
         console.log(searchWord);
 
         Axios.get(baseUrl, { params: {
@@ -39,38 +37,30 @@ export default class Main extends React.Component {
             q: searchWord,
         }           
         })
-            .then(function (response) {
-                console.log("got response from youtube API using: " + searchWord);
-                const res = response.data.items;
-                var videosList = [];
-                for(var i = 0; i < 5; i++){
-                    var video = res[i];
-                    videosList.push({
-                        videoId: video.id.videoId,
-                        channelId: video.snippet.channelId,
-                        channelTitle: video.snippet.channelTitle,
-                        description:video.snippet.description,
-                        publishTime: video.snippet.publishTime,
-                        title: video.snippet.title,
-                        showDetail: false,
-                    })
-                }
-                //console.log(videosList);
-                that.setState({
-                    videos: videosList,
-                    page: 'videoList',
+        .then(function (response) {
+            console.log("got response from youtube API using: " + searchWord);
+            const res = response.data.items;
+            var videosList = [];
+            for(var i = 0; i < 5; i++){
+                var video = res[i];
+                videosList.push({
+                    videoId: video.id.videoId,
+                    channelId: video.snippet.channelId,
+                    channelTitle: video.snippet.channelTitle,
+                    description:video.snippet.description,
+                    publishTime: video.snippet.publishTime,
+                    title: video.snippet.title,
+                    showDetail: false,
                 })
+            }
+            // console.log(videosList);
+            that.setState({
+                videosList: videosList,
             })
-            .catch(function (error) {
-                console.log(error);
-            });
-            
-    }
-
-    handleReturnClick = () => {
-        this.setState({
-            page: ''
         })
+        .catch(function (error) {
+            console.log(error);
+        });
     }
 
     handleVideoSelect = (video) => {
@@ -79,38 +69,46 @@ export default class Main extends React.Component {
         })
     }
 
+    showDetailComponent(video){
+        
+        let newVideoList = [];
+        newVideoList.push(video);
+        this.setState({
+            videoList: newVideoList,
+            selected: '1',
+        })
+    }
+
+
     render() {
-        let user = this.props.user;
-
-        if(this.state.page === 'videoList'){
-            return (
-                <div>                    
-                    <VideoList videoList={this.state.videos} handelVideoSelect = {this.handleVideoSelect} return={this.handleReturnClick}/>
-                </div> 
-                
-            );
-        }else{
-            return (
+        return (
+            <div>
                 <div>
+                    <h1>Search for Videos</h1>
+
                     <div>
-                        <h1>Search for Videos</h1>
+                        <input
+                            id="searchWord"
+                            onChange={this.onInputChange}></input>
+                    </div>
 
-                        <div>
-                            <input
-                                id="searchWord"
-                                onChange={this.onInputChange}></input>
-                        </div>
+                    <div>
+                        <Link to={{
+                            pathname:'/result',
+                            query: {
+                                videosList: [],
+                                searchWord: this.state.searchWord,
+                            }
+                        }}>
+                            <button>Submit</button>
+                        </Link>
+                    </div>
 
-                        <div>
-                            <button onClick={this.onSubmitButtonClick}>Submit</button>
-                        </div>
-
-                    </div> 
-                </div>
-
-                
-            )
-        }
+                </div> 
+            </div>  
+        )
         
     }
 }
+
+export default withRouter(Search);

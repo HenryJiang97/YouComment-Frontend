@@ -1,16 +1,24 @@
 import React from 'react';
-import Detail from './Detail';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
+import { useHistory, Link } from 'react-router-dom';
+
 
 class VideoList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            videoList: this.props.videoList,
             selected: '0',
         }
+        
         this.showDetailComponent = this.showDetailComponent.bind(this);
+    }
+
+
+    handleVideoSelect = (video) => {
+        this.setState({
+            selectedVideo: video
+        })
     }
 
     showDetailComponent(video){
@@ -24,23 +32,33 @@ class VideoList extends React.Component {
     }
 
     render() {
-        const data =this.state.videoList;
-        
         return (
             <div>
                 {this.state.selected === '0' ? <h1 className="title">The top 5 most relevant videos: </h1> : null}
                 <ListGroup>
                     {
-                    data.map((d) => (
-            
+                    this.props.videosList.map((d) => (
                         <ListGroup.Item>
-                            <Detail key={d.videoId} showDetail = '0' video ={d} showDetailComponent={(x) => this.showDetailComponent(x)}/>
+                            <Link to={{
+                                pathname:'/detail',
+                                query: {
+                                    video: d,
+                                    videosList: this.props.videosList,
+                                    showDetailComponent: (x) => this.showDetailComponent(x)
+                                }
+                            }}>
+                                {d.title}
+                            </Link>
                         </ListGroup.Item>
                     ))
 
                     }    
                 </ListGroup>
-                <Button onClick = {this.props.return}>Back</Button>
+
+                <Link to="/search">
+                    <Button>Back</Button>
+                </Link>
+                
             </div>
         );
         

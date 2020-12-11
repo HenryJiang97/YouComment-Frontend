@@ -14,7 +14,7 @@ class Detail extends React.Component {
         super(props);
         this.state = {
             user: undefined,
-            video: this.props.video,
+            video: this.props.location.query.video,
             commentList:[],
             content:'',
             rating:'',
@@ -24,7 +24,6 @@ class Detail extends React.Component {
         this.getUser();
         this.updateCommentList();
 
-        this.handleClick = this.handleClick.bind(this);
         this.onRatingChange = this.onRatingChange.bind(this);
         this.onContentChange = this.onContentChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -41,12 +40,6 @@ class Detail extends React.Component {
         this.setState({
             showComments : '1',
         })
-    }
-
-    handleClick(){
-        let video = this.state.video;
-        video.showDetail = '1';
-        this.props.showDetailComponent(video)
     }
 
     onRatingChange(evt) {
@@ -117,56 +110,57 @@ class Detail extends React.Component {
         const commentList = this.state.commentList;
         console.log(video);
         console.log(commentList);
-        if(video.showDetail === '1'){
-            
-            return (
+
+
+        return (
+            <div>
+                <Table size = "sm">
+                    <thead>
+                        <tr>
+                            <th>Info</th>
+                            <th>Value</th>
+                        </tr>    
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Video Title</td>
+                            <td>{video.title}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>{video.description}</td>
+                        </tr>
+                        <tr>
+                            <td>Video Id</td>
+                            <td>{video.videoId}</td>
+                        </tr>
+                        <tr>
+                            <td>Publish Time</td>
+                            <td>{video.publishTime}</td>
+                        </tr>
+                        <tr>
+                            <td>Channel Title</td>
+                            <td>{video.channelTitle}</td>
+                        </tr>
+                        <tr>
+                            <td>Channel Id</td>
+                            <td>{video.channelId}</td>
+                        </tr>
+                        
+                    </tbody>
+                </Table>
+
                 <div>
-                    <Table size = "sm">
-                        <thead>
-                            <tr>
-                                <th>Info</th>
-                                <th>Value</th>
-                            </tr>    
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Video Title</td>
-                                <td>{video.title}</td>
-                            </tr>
-                            <tr>
-                                <td>Description</td>
-                                <td>{video.description}</td>
-                            </tr>
-                            <tr>
-                                <td>Video Id</td>
-                                <td>{video.videoId}</td>
-                            </tr>
-                            <tr>
-                                <td>Publish Time</td>
-                                <td>{video.publishTime}</td>
-                            </tr>
-                            <tr>
-                                <td>Channel Title</td>
-                                <td>{video.channelTitle}</td>
-                            </tr>
-                            <tr>
-                                <td>Channel Id</td>
-                                <td>{video.channelId}</td>
-                            </tr>
-                            
-                        </tbody>
-                    </Table>
-
                     <div>
-                        <div>
-                            <Button onClick={this.onView}>View Comments</Button>
-                        </div>
-                        {this.state.showComments === '1' ? <CommentList videoId={this.state.video.videoId} commentList={this.state.commentList} />: null}
+                        <Button onClick={this.onView}>View Comments</Button>
                     </div>
-                    
+                    {this.state.showComments === '1' ? <CommentList videoId={this.state.video.videoId} commentList={this.state.commentList} />: null}
+                </div>
+                
 
 
-                    {/* Leave comments */}
+                {/* Leave comments */}
+                <div>
                     {this.state.user == undefined
                     ?
                         (
@@ -192,26 +186,24 @@ class Detail extends React.Component {
                             </div>
                         )
                     }
-
-                    
-
-                    
-                    
                 </div>
-            );
-        }else{
-            return (
-                <div>
-                    <div onClick = {this.handleClick}>{video.title}</div>                    
-                </div>
-            );
-        }
-        
-        
-        
+                
+
+                <Link to={{
+                    pathname: "/result",
+                    query: {
+                        videosList: this.props.location.query.videosList,
+                        searchWord: "",
+                    }
+                }}>
+                    <Button>Back</Button>
+                </Link>
+            </div>
+        );
     }
-
 }
+
+
 export default Detail;
 
 

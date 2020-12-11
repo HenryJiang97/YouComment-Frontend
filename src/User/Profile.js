@@ -2,10 +2,6 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {statusListener} from './Firebase';
 
-// Firebase authentication module
-import {
-    signOut
-} from './Firebase';
 
 export default class Profile extends Component {
     constructor(props) {
@@ -14,16 +10,12 @@ export default class Profile extends Component {
             user: null
         }
         this.getUser();
-        this.handleSignoutButtonClick = this.handleSignoutButtonClick.bind(this);
     }
 
     getUser() {
         statusListener(this);
     }
 
-    handleSignoutButtonClick() {
-        signOut();
-    }
 
     render() {
         return (
@@ -31,7 +23,7 @@ export default class Profile extends Component {
             (
                 <div>
                     <h2>You're not signed in</h2>
-                    <Link to="/">
+                    <Link to="/login">
                         <button onClick>Go sign in</button>    
                     </Link>
                 </div>
@@ -44,7 +36,7 @@ export default class Profile extends Component {
                     <div>
                         <label>UID:</label>
                         <br></br>
-                        <label>{this.state.user.uid}</label>
+                        <label>{this.state.user.id}</label>
                         <br></br>
 
                         <label>Email:</label>
@@ -52,8 +44,20 @@ export default class Profile extends Component {
                         <label>{this.state.user.email}</label>
                         <br></br>
 
-                        <button onClick={this.handleSignoutButtonClick}>Sign out</button>
+                        <label>Name:</label>
+                        <br></br>
+                        <label>{this.state.user.name}</label>
+                        <br></br>
+
+                        <label>User Type:</label>
+                        <br></br>
+                        <label>{this.state.user.type}</label>
+                        <br></br>
                     </div>
+
+                    <Link to="/edit">
+                        <button>Edit Profile</button>
+                    </Link>
                 </div>
             )
         );
