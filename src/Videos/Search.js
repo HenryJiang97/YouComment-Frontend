@@ -96,6 +96,7 @@ class Search extends React.Component {
                         <Link to={{
                             pathname:'/result',
                             query: {
+                                videosList: [],
                                 searchWord: this.state.searchWord,
                             }
                         }}>

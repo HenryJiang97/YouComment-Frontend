@@ -1,6 +1,5 @@
 import React from 'react';
 import Axios from 'axios';
-import { Link, withRouter} from 'react-router-dom'
 import VideoList from './VideoList';
 
 import {
@@ -20,10 +19,15 @@ class Result extends React.Component {
 
 
     componentDidMount(){
-        this.getYouTubeVideos();
+        this.setState({videosList: this.props.location.query.videosList});
+        console.log("List: ", this.state.videosList);
+        if (this.state.videosList.length === 0) {
+            this.getYouTubeVideos();
+        }
     }
 
     getYouTubeVideos(){
+        console.log("Getting youtube videos");
         const that = this;
         const searchWord = this.props.location.query.searchWord;
         console.log(searchWord);
@@ -70,4 +74,4 @@ class Result extends React.Component {
     }
 }
 
-export default withRouter(Result);
+export default Result;

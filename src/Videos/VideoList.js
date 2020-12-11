@@ -1,8 +1,7 @@
 import React from 'react';
-import Detail from './Detail';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
-import { useHistory, withRouter } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 
 class VideoList extends React.Component {
@@ -13,11 +12,6 @@ class VideoList extends React.Component {
         }
         
         this.showDetailComponent = this.showDetailComponent.bind(this);
-        this.goBack = this.goBack.bind(this);
-    }
-
-    goBack() {
-        useHistory.goBack();
     }
 
 
@@ -45,19 +39,31 @@ class VideoList extends React.Component {
                     {
                     this.props.videosList.map((d) => (
                         <ListGroup.Item>
-                            <Detail key={d.videoId} showDetail = '0' video ={d} showDetailComponent={(x) => this.showDetailComponent(x)}/>
+                            <Link to={{
+                                pathname:'/detail',
+                                query: {
+                                    video: d,
+                                    videosList: this.props.videosList,
+                                    showDetailComponent: (x) => this.showDetailComponent(x)
+                                }
+                            }}>
+                                {d.title}
+                            </Link>
                         </ListGroup.Item>
                     ))
 
                     }    
                 </ListGroup>
 
-                <Button onClick = {this.props.history.goBack}>Back</Button>
+                <Link to="/search">
+                    <Button>Back</Button>
+                </Link>
+                
             </div>
         );
         
     }
     
 }
-export default withRouter(VideoList);
+export default VideoList;
 
