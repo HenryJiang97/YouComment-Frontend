@@ -192,11 +192,7 @@ class Detail extends React.Component {
                             </div>
                         )
                     }
-
-                    
-
-                    
-                    
+ 
                 </div>
             );
         }else{
@@ -206,9 +202,6 @@ class Detail extends React.Component {
                 </div>
             );
         }
-        
-        
-        
     }
 
 }

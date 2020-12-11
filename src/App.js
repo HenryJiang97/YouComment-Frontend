@@ -5,6 +5,7 @@ import Search from './Videos/Search';
 import Profile from './User/Profile';
 import User from './User/User';
 import Home from './Home';
+import Result from './Videos/Result';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route exact path="/" component={Home}/>
         <Route path="/profile" component={Profile}></Route>
         <Route path="/search" component={Search}></Route>
+        <Route path="/result" component={Result}></Route>
         <Route path='/login' component={User}></Route>
       </Switch>
     </div>
