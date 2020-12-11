@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactPlayer from "react-player"
+
 import { Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import CommentList from './CommentList';
@@ -71,11 +73,12 @@ class Detail extends React.Component {
         Axios.post(
             commentApiPrefix, 
             {
-              id: 'user1', //need to change later
+              id: uuidv4(), //need to change later
               rating: rating,
               content: content,
               videoId: videoId,
-              posterId:uuidv4(),
+              posterId: that.state.user.id,
+              posterName: that.state.user.name
             }
           ).then(function() {
               alert('successfully posted your comment');
@@ -95,6 +98,21 @@ class Detail extends React.Component {
           })
 
     }
+
+    deleteComment(commentId) {
+        const that = this;
+        Axios.delete(
+            `${commentApiPrefix}${commentId}`
+        )
+        .then(function(response) {
+            alert("Successfully deleted comment");
+            that.updateCommentList();
+        })
+        .catch(function(error) {
+            alert("Delete comment error");
+        });
+    }
+
     onSubmit() {
         const that = this;
         const content = this.state.content;
@@ -102,7 +120,7 @@ class Detail extends React.Component {
         const videoId = this.state.video.videoId;
         console.log(content+ '........' + rating + '.......'+videoId);
         that.postComment(content, rating, videoId);
-      }
+    }
     
 
     render () {
@@ -114,6 +132,15 @@ class Detail extends React.Component {
 
         return (
             <div>
+                {/* Video player */}
+                <div>
+                    <h3>Video</h3>
+                    <ReactPlayer
+                        url={`https://www.youtube.com/watch?v=${video.videoId}`}
+                    />
+                </div>
+                
+                {/* Video details */}
                 <Table size = "sm">
                     <thead>
                         <tr>
@@ -150,21 +177,38 @@ class Detail extends React.Component {
                     </tbody>
                 </Table>
 
+                {/* Comments */}
                 <div>
+                    <h3>Comments</h3>
                     <div>
                         <Button onClick={this.onView}>View Comments</Button>
                     </div>
-                    {this.state.showComments === '1' ? <CommentList videoId={this.state.video.videoId} commentList={this.state.commentList} />: null}
+                    {
+                        this.state.showComments === '1'
+                        ? 
+                            <CommentList
+                                videoId={this.state.video.videoId}
+                                commentList={this.state.commentList}
+                                deleteComment={(commentId) => this.deleteComment(commentId)}
+                            />
+                        : 
+                            null
+                    }
                 </div>
                 
 
-
                 {/* Leave comments */}
                 <div>
+                    <h4>Leave comments</h4>
                     {this.state.user == undefined
                     ?
                         (
-                            <h4>You're not signed in</h4>
+                            <div>
+                                <h4>You're not signed in</h4>
+                                <Link to="/login">
+                                    <button>Go Sign In</button>
+                                </Link>
+                            </div>
                         )
                     :
                         (
@@ -189,6 +233,7 @@ class Detail extends React.Component {
                 </div>
                 
 
+                {/* Go Back */}
                 <Link to={{
                     pathname: "/result",
                     query: {

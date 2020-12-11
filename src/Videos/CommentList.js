@@ -40,7 +40,11 @@ class CommentList extends React.Component {
                     data.map((d) => (
             
                         <ListGroup.Item>
-                            <Comment key={d.id} comment = {d} />
+                            <Comment
+                                key={d.id}
+                                comment={d}
+                                deleteComment={(commentId) => this.props.deleteComment(commentId)}
+                            />
                         </ListGroup.Item>
                     ))
 
