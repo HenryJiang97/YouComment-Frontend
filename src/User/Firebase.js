@@ -91,9 +91,18 @@ let statusListener = (userclass) => {
     });
 }
 
+// Update Password
+let updatePassword = (newPassword) => {
+    auth.currentUser.updatePassword(newPassword).then(function() {
+        alert("Password Updated");
+    }).catch(function(error) {
+        console.log(error);
+    });
+}
+
 // Password reset
 let resetPassword = (newPassword) => {
-    this.auth.resetPassword(newPassword);
+    auth.resetPassword(newPassword);
 }
 
 export {
@@ -101,5 +110,6 @@ export {
     signInWithEmailAndPassword,
     signOut,
     statusListener,
+    updatePassword,
     resetPassword
 }

@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { userApiPrefix } from '../Config';
 import {
-    statusListener
+    statusListener,
+    updatePassword
 } from './Firebase';
 
 
@@ -13,12 +14,13 @@ export default class Edit extends Component {
         this.state = {
             user: null,
             name: "",
-            oldPassword: "",
+            // oldPassword: "",
             newPassword: "",
         }
         this.getUser();
         this.onInputChange = this.onInputChange.bind(this);
-        this.onButtonClick = this.onButtonClick.bind(this);
+        this.onNameButtonClick = this.onNameButtonClick.bind(this);
+        this.onPasswordButtonClick = this.onPasswordButtonClick.bind(this);
     }
 
     getUser() {
@@ -29,11 +31,13 @@ export default class Edit extends Component {
         this.setState({[evt.target.name]: evt.target.value});
     }
 
-    onButtonClick() {
+    onNameButtonClick() {
         this.changeName();
-        this.changePassword();
         document.getElementById("name").value = "";
-        document.getElementById("oldPassword").value = "";
+    }
+    
+    onPasswordButtonClick() {
+        this.changePassword();
         document.getElementById("newPassword").value = "";
     }
 
@@ -52,7 +56,8 @@ export default class Edit extends Component {
     }
 
     changePassword() {
-
+        console.log(this.state.newPassword);
+        updatePassword(this.state.newPassword);
     }
 
 
@@ -76,21 +81,21 @@ export default class Edit extends Component {
                         <label>Name:</label>
                         <br></br>
                         <input id="name" name="name" onChange={this.onInputChange}></input>
+                        <button onClick={this.onNameButtonClick}>Update Name</button>
                         <br></br>
 
                         <div>
                             <label>Password:</label>
                             <br></br>
                             <div>
-                                <label>Old Password</label>
-                                <input id="oldPassword" name="oldPassword" type="password" onChange={this.onInputChange}></input>
+                                {/* <label>Old Password</label>
+                                <input id="oldPassword" name="oldPassword" type="password" onChange={this.onInputChange}></input> */}
                                 <label>New Password</label>
                                 <input  id="newPassword" name="newPassword" type="password" onChange={this.onInputChange}></input>
+                                <button onClick={this.onPasswordButtonClick}>Update Password</button>
                             </div>
                             
                         </div>
-                        
-                        <button onClick={this.onButtonClick}>Edit</button>
                     </div>
                 </div>
             )
