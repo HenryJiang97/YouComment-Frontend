@@ -8,6 +8,7 @@ import Home from './Home';
 import Result from './Videos/Result';
 import VideoList from './Videos/VideoList';
 import Detail from './Videos/Detail';
+import Edit from './User/Edit';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route path="/profile" component={Profile}></Route>
+        <Route path='/edit' component={Edit}></Route>
         <Route path="/search" component={Search}></Route>
         <Route path="/result" component={Result}></Route>
         <Route path="/detail" component={Detail}></Route>

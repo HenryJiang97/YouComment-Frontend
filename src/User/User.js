@@ -5,6 +5,7 @@ import SignIn from './SignIn';
 
 import {
     statusListener,
+    signOut
 } from './Firebase';
 
 export default class User extends Component {
@@ -15,10 +16,15 @@ export default class User extends Component {
         };
         this.handleStatusChange();
         this.handleStatusChange = this.handleStatusChange.bind(this);
+        this.handleSignoutButtonClick = this.handleSignoutButtonClick.bind(this);
     }
 
     handleStatusChange() {
         statusListener(this);
+    }
+
+    handleSignoutButtonClick() {
+        signOut();
     }
 
     render() {
@@ -28,6 +34,7 @@ export default class User extends Component {
                     <div>
                         <h2>You're signed in</h2>
                         <Link to="/search"><button>Search Videos</button></Link>
+                        <button onClick={this.handleSignoutButtonClick}>Sign out</button>
                     </div>
                 : 
                     <SignIn />

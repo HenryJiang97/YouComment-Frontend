@@ -71,10 +71,23 @@ let signOut = () => {
 // Login status listener
 let statusListener = (userclass) => {
     auth.onAuthStateChanged(function(user) {
-        // Get user from MongoDB
-        Axios.get();
-
-        userclass.setState({user: user});
+        if (user == null) {
+            userclass.setState({user: user});
+        } else {
+            // Get user from MongoDB
+            console.log(user);
+            Axios.get(
+                `${userApiPrefix}${user.uid}`
+            )
+            .then(function(response) {
+                // console.log(response);
+                userclass.setState({user: response.data});
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+        }
+        
     });
 }
 
