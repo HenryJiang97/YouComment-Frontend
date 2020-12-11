@@ -2,21 +2,14 @@ import React from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Comment from './Comment';
 import Axios from 'axios';
-import {commentApiPrefix} from './Config';
+import {commentApiPrefix} from '../Config';
 
 
 class CommentList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            videoId: this.props.videoId,
-            commentList:[],
-        }
-    }
 
     componentDidMount() {
         const that = this;
-        var videoId = this.state.videoId;
+        var videoId = this.props.videoId;
         console.log(videoId);
         const query = `${commentApiPrefix}videoId/${videoId}`;
         console.log(query);
@@ -34,7 +27,7 @@ class CommentList extends React.Component {
 
 
     render() {
-        const data =this.state.commentList;
+        const data =this.props.commentList;
         console.log('comment list'+ data);
         if(data === null){
             return;

@@ -72,6 +72,7 @@ export default class SignIn extends Component {
                 <div>
                     <button onClick={this.handleSignUpClick}>SIGN UP</button>
                     <button onClick={this.handleSignInClick}>SIGN IN</button>
+                    <button>Continue as guest</button>
                 </div>
                 
             </div>

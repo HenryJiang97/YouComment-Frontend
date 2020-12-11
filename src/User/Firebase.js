@@ -39,7 +39,6 @@ let createUserWithEmailAndPassword = (email, password, name) => {
     auth.createUserWithEmailAndPassword(email, password)
     .then((user) => {
         let info = `UID: ${user.user.uid}\nEmail: ${user.user.email}`;
-        // TODO: How to throw error?
         addNewUserToDB(user.user.uid, email, name);
         alert(`Signed up\nUser Info:\n${info}`);
     })
@@ -72,6 +71,9 @@ let signOut = () => {
 // Login status listener
 let statusListener = (userclass) => {
     auth.onAuthStateChanged(function(user) {
+        // Get user from MongoDB
+        Axios.get();
+
         userclass.setState({user: user});
     });
 }

@@ -4,23 +4,36 @@ import Table from 'react-bootstrap/Table';
 import CommentList from './CommentList';
 import Axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import {commentApiPrefix} from './Config';
+
+import {statusListener} from '../User/Firebase';
+import {commentApiPrefix} from '../Config';
+import { Link } from 'react-router-dom';
 
 class Detail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            user: undefined,
             video: this.props.video,
             commentList:[],
             content:'',
             rating:'',
             showComments: '0',
         }
+
+        this.getUser();
+        this.updateCommentList();
+
         this.handleClick = this.handleClick.bind(this);
         this.onRatingChange = this.onRatingChange.bind(this);
         this.onContentChange = this.onContentChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onView = this.onView.bind(this);
+    }
+
+    getUser() {
+        statusListener(this);
+        console.log(this.state.user);
     }
 
     
@@ -44,6 +57,22 @@ class Detail extends React.Component {
         this.setState({ content: evt.target.value });
     }
 
+    updateCommentList() {
+        const that = this;
+        Axios.get(
+            `${commentApiPrefix}videoId/${this.state.video.videoId}`
+        )
+        .then(function (response){
+            // console.log(response.data);
+            that.setState({
+                commentList: response.data
+            })
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
     postComment(content, rating, videoId) {
         const that = this;
         Axios.post(
@@ -60,9 +89,6 @@ class Detail extends React.Component {
               that.setState({
                 showComments : '1',
               })
-            
-            
-      
           })
           .catch(error => console.log(error))
           .then(function(){
@@ -70,6 +96,9 @@ class Detail extends React.Component {
                 content:'',
                 rating:'',
               })
+              document.getElementById("content").value = "";
+              document.getElementById("rating").value = "";
+              that.updateCommentList();
           })
 
     }
@@ -127,24 +156,46 @@ class Detail extends React.Component {
                             
                         </tbody>
                     </Table>
+
                     <div>
-                        <Button onClick={this.onView}>View Comments</Button>
+                        <div>
+                            <Button onClick={this.onView}>View Comments</Button>
+                        </div>
+                        {this.state.showComments === '1' ? <CommentList videoId={this.state.video.videoId} commentList={this.state.commentList} />: null}
                     </div>
-                    {this.state.showComments === '1' ? <CommentList videoId={this.state.video.videoId}/>: null}
-                    <h5>New Comment:</h5>
-                    <div>Comment: 
-                        <input
-                                id="content"
-                                onChange={this.onContentChange}></input>
-                    </div>
-                    <div>Rating(1~5):
-                        <input
-                                id="rating"
-                                onChange={this.onRatingChange}></input>
-                    </div>
-                    <div>
-                        <button onClick={this.onSubmit}>Submit</button>
-                    </div>
+                    
+
+
+                    {/* Leave comments */}
+                    {this.state.user == undefined
+                    ?
+                        (
+                            <h4>You're not signed in</h4>
+                        )
+                    :
+                        (
+                            <div>
+                                <h5>New Comment:</h5>
+                                <div>Comment: 
+                                    <input
+                                            id="content"
+                                            onChange={this.onContentChange}></input>
+                                </div>
+                                <div>Rating(1~5):
+                                    <input
+                                            id="rating"
+                                            onChange={this.onRatingChange}></input>
+                                </div>
+                                <div>
+                                    <button onClick={this.onSubmit}>Submit</button>
+                                </div>
+                            </div>
+                        )
+                    }
+
+                    
+
+                    
                     
                 </div>
             );

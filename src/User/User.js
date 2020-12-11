@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom'
 
-import Profile from './Profile';
 import SignIn from './SignIn';
 
 import {
@@ -25,7 +25,10 @@ export default class User extends Component {
         return (
             (
                 this.state.user ? 
-                    <Profile user={this.state.user}/> 
+                    <div>
+                        <h2>You're signed in</h2>
+                        <Link to="/search"><button>Search Videos</button></Link>
+                    </div>
                 : 
                     <SignIn />
             )

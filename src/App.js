@@ -1,35 +1,36 @@
 import './App.css';
 import { Link, Route, Switch } from "react-router-dom";
+
+import Search from './Videos/Search';
+import Profile from './User/Profile';
+import User from './User/User';
 import Home from './Home';
-import User from './User/User'
 
 function App() {
   return (
-    // <div className="App">
-    //   <Home/>
-    // </div>
     <div className = "App">
       <nav className="navbar navbar">
         <ul className="nav navbar-nav">
           <li>
-            <Link to={{
-              pathname:'/',
-              state: {
-                page: ''
-              }
-            }}>Home</Link>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/user">Log In/Sign Out</Link>
+            <Link to="/login">Sign in / Sign out</Link>
           </li>
           <li>
-            <Link to="/profile">User profile</Link>
+            <Link to="/profile">Profile</Link>
+          </li>
+          <li>
+            <Link to="/search">Search</Link>
           </li>
         </ul>
       </nav>
+
       <Switch>
-        <Route exact path="/" render={() => <Home page="" />} />
-        <Route path="/user" component={User} />
+        <Route exact path="/" component={Home}/>
+        <Route path="/profile" component={Profile}></Route>
+        <Route path="/search" component={Search}></Route>
+        <Route path='/login' component={User}></Route>
       </Switch>
     </div>
   );
