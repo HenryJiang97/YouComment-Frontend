@@ -1,0 +1,13 @@
+.Profile {
+    background: url(profile.jpg) no-repeat center center fixed; 
+    height: 1000px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.profileHeader {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}

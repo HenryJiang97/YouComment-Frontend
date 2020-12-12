@@ -1,12 +1,13 @@
 import React from 'react';
 import Axios from 'axios';
 import { Link, withRouter} from 'react-router-dom'
-
+import './Search.css';
 import {
     youtubeApiKey as APIkey,
     youtubeBaseUrl as baseUrl
 } from '../Config';
 
+import Button from 'react-bootstrap/Button';
 
 class Search extends React.Component {
     constructor(props) {
@@ -82,8 +83,8 @@ class Search extends React.Component {
 
     render() {
         return (
-            <div>
-                <div>
+            <div class = 'Search'>
+                <div class = 'searchHeader'>
                     <h1>Search for Videos</h1>
 
                     <div>
@@ -100,7 +101,8 @@ class Search extends React.Component {
                                 searchWord: this.state.searchWord,
                             }
                         }}>
-                            <button>Submit</button>
+                            <br></br>
+                            <Button>Submit</Button>
                         </Link>
                     </div>
 
