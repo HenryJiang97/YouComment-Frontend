@@ -1,7 +1,7 @@
 import React from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './VideoList.css';
 
 class VideoList extends React.Component {
