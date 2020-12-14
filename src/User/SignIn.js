@@ -39,6 +39,7 @@ export default class SignIn extends Component {
     }
 
     handleSignUpClick() {
+        console.log(this.state.email);
         createUserWithEmailAndPassword(this.state.email, this.state.password, this.state.name);
         this.restoreStates();
     }

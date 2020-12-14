@@ -36,6 +36,7 @@ function addNewUserToDB(id, email, name) {
 // Firebase Auth APIs
 // Create user with email and password
 let createUserWithEmailAndPassword = (email, password, name) => {
+    console.log(name);
     auth.createUserWithEmailAndPassword(email, password)
     .then((user) => {
         let info = `UID: ${user.user.uid}\nEmail: ${user.user.email}`;
