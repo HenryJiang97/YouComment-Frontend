@@ -1,9 +1,10 @@
 import './App.css';
-import { Link, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import Search from './Videos/Search';
 import Profile from './User/Profile';
 import User from './User/User';
+import UserStatus from './UserStatus';
 import Home from './Home';
 import Result from './Videos/Result';
 
@@ -21,6 +22,11 @@ function App() {
           <Nav.Link href="/login">Sign in / Sign out</Nav.Link>
           <Nav.Link href="/profile">Profile</Nav.Link>
           <Nav.Link href="/search">Search</Nav.Link>
+          <Navbar.Collapse className="navbar-nav ml-auto">
+            <Navbar.Text>
+              <UserStatus />
+            </Navbar.Text>
+          </Navbar.Collapse>
         </Nav>
       </Navbar>
 
