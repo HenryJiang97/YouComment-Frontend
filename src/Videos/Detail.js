@@ -11,6 +11,8 @@ import {statusListener} from '../User/Firebase';
 import {commentApiPrefix} from '../Config';
 import { Link } from 'react-router-dom';
 
+import './Detail.css';
+
 class Detail extends React.Component {
     constructor(props) {
         super(props);
@@ -131,54 +133,65 @@ class Detail extends React.Component {
 
 
         return (
-            <div>
+            <div class = 'Detail'>
                 {/* Video player */}
                 <div>
-                    <h3>Video</h3>
-                    <ReactPlayer
-                        url={`https://www.youtube.com/watch?v=${video.videoId}`}
-                    />
+                    <h2 class = 'detailHeader'>Video</h2>
+                    <div class = 'playerwraper'>
+                        <ReactPlayer
+                            url={`https://www.youtube.com/watch?v=${video.videoId}`}
+                            fluid={false}
+                            width={480}
+                            height={272}
+                            position='center'
+                        />
+                    </div>
+                    <br></br>
                 </div>
                 
                 {/* Video details */}
-                <Table size = "sm">
-                    <thead>
-                        <tr>
-                            <th>Info</th>
-                            <th>Value</th>
-                        </tr>    
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Video Title</td>
-                            <td>{video.title}</td>
-                        </tr>
-                        <tr>
-                            <td>Description</td>
-                            <td>{video.description}</td>
-                        </tr>
-                        <tr>
-                            <td>Video Id</td>
-                            <td>{video.videoId}</td>
-                        </tr>
-                        <tr>
-                            <td>Publish Time</td>
-                            <td>{video.publishTime}</td>
-                        </tr>
-                        <tr>
-                            <td>Channel Title</td>
-                            <td>{video.channelTitle}</td>
-                        </tr>
-                        <tr>
-                            <td>Channel Id</td>
-                            <td>{video.channelId}</td>
-                        </tr>
-                        
-                    </tbody>
-                </Table>
+                <h3>Video Detail:</h3>
+                <div class = 'tableCenter'>
+                    <Table size = "sm" align = "center" class = 'tableCenter'>
+                        <thead>
+                            <tr>
+                                <th>Info</th>
+                                <th>Value</th>
+                            </tr>    
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Video Title</td>
+                                <td>{video.title}</td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td>{video.description}</td>
+                            </tr>
+                            <tr>
+                                <td>Video Id</td>
+                                <td>{video.videoId}</td>
+                            </tr>
+                            <tr>
+                                <td>Publish Time</td>
+                                <td>{video.publishTime}</td>
+                            </tr>
+                            <tr>
+                                <td>Channel Title</td>
+                                <td>{video.channelTitle}</td>
+                            </tr>
+                            <tr>
+                                <td>Channel Id</td>
+                                <td>{video.channelId}</td>
+                            </tr>
+                            
+                        </tbody>
+                    </Table>
+                </div>
+                
 
                 {/* Comments */}
-                <div>
+                <div class = 'center'>
                     <h3>Comments</h3>
                     <div>
                         <Button onClick={this.onView}>View Comments</Button>
@@ -198,7 +211,7 @@ class Detail extends React.Component {
                 
 
                 {/* Leave comments */}
-                <div>
+                <div class = 'center'>
                     <h4>Leave comments</h4>
                     {this.state.user == undefined
                     ?

@@ -1,0 +1,26 @@
+.Signin {
+    background: url(signin.jpg) no-repeat center center fixed; 
+    height: 1000px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.headerSignIn {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    color: rgb(86, 100, 41);
+}
+
+.label {
+    padding: 8px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.divider{
+    width:20px;
+    height:auto;
+    display:inline-block;
+}

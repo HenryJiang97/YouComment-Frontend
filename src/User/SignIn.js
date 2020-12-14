@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-
+import './Signin.css';
 // Firebase authentication module
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword
 } from './Firebase';
+
+import Button from 'react-bootstrap/Button';
 
 
 export default class SignIn extends Component {
@@ -49,30 +51,34 @@ export default class SignIn extends Component {
 
     render() {
         return (
-            <div>
-                <h2>Sign In</h2>
+            <div class = 'Signin'>
+                <h1 class = 'headerSignIn'>Sign In</h1>
+                <div >
+                    {/* Account Info Form */}
+                    
+                    <label for="email" class = 'label'>Email:</label>
+                    <br></br>
+                    <input type="email" name="email" id="email" onChange={this.handleInputChange}></input>
+                    <br></br>
 
-                {/* Account Info Form */}
-                <label for="email">Email:</label>
-                <br></br>
-                <input type="email" name="email" id="email" onChange={this.handleInputChange}></input>
-                <br></br>
+                    <label for="name" class = 'label'>Name:</label>
+                    <br></br>
+                    <input type="text" name="name" id="name" onChange={this.handleInputChange}></input>
+                    <br></br>
 
-                <label for="name">Name:</label>
-                <br></br>
-                <input type="text" name="name" id="name" onChange={this.handleInputChange}></input>
-                <br></br>
-
-                <label for="password">Password:</label>
-                <br></br>
-                <input type="password" name="password" id="password" onChange={this.handleInputChange}></input>
-                <br></br>
-                
-                <br></br>
-                <div>
-                    <button onClick={this.handleSignUpClick}>SIGN UP</button>
-                    <button onClick={this.handleSignInClick}>SIGN IN</button>
+                    <label for="password" class = 'label'>Password:</label>
+                    <br></br>
+                    <input type="password" name="password" id="password" onChange={this.handleInputChange}></input>
+                    <br></br>
+                    
+                    <br></br>
+                    <div>
+                        <Button variant="primary" onClick={this.handleSignUpClick}>SIGN UP</Button>
+                        <div class = 'divider' />
+                        <Button variant="success" onClick={this.handleSignInClick}>SIGN IN</Button>
+                    </div>
                 </div>
+                
                 
             </div>
         );

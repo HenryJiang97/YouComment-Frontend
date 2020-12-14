@@ -1,0 +1,29 @@
+.Detail {
+    background: url(search.jpg) no-repeat center center fixed; 
+    height: 1000px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.detailHeader {
+    padding-top: 60px;
+    padding-bottom: 30px;
+    color: rgb(57, 66, 27);
+}
+.playerwraper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tableCenter {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    color:rgb(57, 66, 27);
+    background-color: rgb(250, 223, 199);
+    
+}
+table, thead, tbody, th, td, tr {
+    border: 1px solid black;
+  }

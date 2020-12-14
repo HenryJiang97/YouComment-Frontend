@@ -1,0 +1,21 @@
+.Home {
+    background: url(bg.jpg) no-repeat center center fixed; 
+    height: 1000px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.header {
+    padding: 60px;
+    text-align: center;
+    background: #305f2a;
+    color: white;
+    font-size: 30px;
+}
+
+.img {
+    background-size: cover;
+    max-width: 100%;  
+    height: auto;
+}

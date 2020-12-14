@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {statusListener} from './Firebase';
-
+import './Profile.css';
+import Button from 'react-bootstrap/Button';
 
 export default class Profile extends Component {
     constructor(props) {
@@ -21,17 +22,17 @@ export default class Profile extends Component {
         return (
             this.state.user === null ? 
             (
-                <div>
-                    <h2>You're not signed in</h2>
+                <div class = 'Profile'>
+                    <h2 class = 'profileHeader'>You're not signed in</h2>
                     <Link to="/login">
-                        <button onClick>Go sign in</button>    
+                        <Button variant="primary">Go sign in</Button>    
                     </Link>
                 </div>
             )
             :
             (
-                <div>
-                    <h2>User Profile</h2>
+                <div class = 'Profile'>
+                    <h2 class = 'profileHeader'>User Profile</h2>
 
                     <div>
                         <label>UID:</label>

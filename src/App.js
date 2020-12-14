@@ -6,29 +6,23 @@ import Profile from './User/Profile';
 import User from './User/User';
 import Home from './Home';
 import Result from './Videos/Result';
-import VideoList from './Videos/VideoList';
+
 import Detail from './Videos/Detail';
 import Edit from './User/Edit';
+import {Navbar, Nav} from 'react-bootstrap';
 
 function App() {
   return (
     <div className = "App">
-      <nav className="navbar navbar">
-        <ul className="nav navbar-nav">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/login">Sign in / Sign out</Link>
-          </li>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            <Link to="/search">Search</Link>
-          </li>
-        </ul>
-      </nav>
+      <Navbar bg="dark" variant="dark">
+        <Navbar.Brand href="/">Navbar</Navbar.Brand>
+        <Nav className="mr-auto">
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/login">Sign in / Sign out</Nav.Link>
+          <Nav.Link href="/profile">Profile</Nav.Link>
+          <Nav.Link href="/search">Search</Nav.Link>
+        </Nav>
+      </Navbar>
 
       <Switch>
         <Route exact path="/" component={Home}/>

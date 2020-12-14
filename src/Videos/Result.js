@@ -1,7 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import VideoList from './VideoList';
-
+import './Result.css';
 import {
     youtubeApiKey as APIkey,
     youtubeBaseUrl as baseUrl
@@ -67,7 +67,7 @@ class Result extends React.Component {
 
     render() {
         return (
-            <div>
+            <div class = 'Result'>
                 <VideoList videosList={this.state.videosList} />
             </div>
         )
