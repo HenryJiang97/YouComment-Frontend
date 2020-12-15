@@ -16,13 +16,15 @@ function App() {
   return (
     <div className = "App">
       <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="/">Navbar</Navbar.Brand>
+        <Navbar.Brand href="/">YouComment</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/login">Sign in / Sign out</Nav.Link>
           <Nav.Link href="/profile">Profile</Nav.Link>
           <Nav.Link href="/search">Search</Nav.Link>
-          <Navbar.Collapse className="navbar-nav ml-auto">
+        </Nav>
+        <Nav className="ml-auto">
+          <Navbar.Collapse>
             <Navbar.Text>
               <UserStatus />
             </Navbar.Text>

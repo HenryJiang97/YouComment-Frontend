@@ -70,6 +70,13 @@ class Comment extends React.Component {
         })
         .catch(function() {
             alert("Edit comment error");
+        })
+        .then(function (params) {
+            document.getElementById("commentInput").value = "";
+            that.setState({
+                newContent: "",
+                edit: 0
+            });
         });
     }
 
@@ -94,12 +101,12 @@ class Comment extends React.Component {
                             </div>
 
                             {
-                                this.state.edit == 1
+                                this.state.edit === 1
                                 ? 
                                     (
                                         <div>
                                             <label>Content</label>
-                                            <input onChange={this.handleContentInput}></input>
+                                            <input id="commentInput" onChange={this.handleContentInput}></input>
                                             <button onClick={this.handleSubmitButtonClick}>Submit</button>
                                         </div>
                                     )

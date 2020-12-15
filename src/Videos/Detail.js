@@ -213,6 +213,7 @@ class Detail extends React.Component {
                 {/* Leave comments */}
                 <div class = 'center'>
                     <h4>Leave comments</h4>
+                    {/* eslint-disable-next-line */}
                     {this.state.user == undefined
                     ?
                         (
