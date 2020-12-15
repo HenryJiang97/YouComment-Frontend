@@ -21,6 +21,7 @@ export default class SignIn extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSignUpClick = this.handleSignUpClick.bind(this);
         this.handleSignInClick = this.handleSignInClick.bind(this);
+        this.handleUserTypeClick = this.handleUserTypeClick.bind(this);
     }
 
     // Restore states after button clicked
@@ -33,7 +34,8 @@ export default class SignIn extends Component {
         });
         document.getElementById("email").value = "";
         document.getElementById("name").value = "";
-        document.getElementById("usertype").value = "";
+        document.getElementById("userRadio").checked = false;
+        document.getElementById("adminRadio").checked = false;
         document.getElementById("password").value = "";
     }
 
@@ -41,10 +43,20 @@ export default class SignIn extends Component {
         this.setState({[evt.target.name]: evt.target.value});
     }
 
+    handleUserTypeClick() {
+        let chkUser = document.getElementById("userRadio");
+        this.setState({
+            usertype: chkUser.checked ? "User" : "Admin"
+        })
+    }
+
     handleSignUpClick() {
-        console.log(this.state.email);
-        createUserWithEmailAndPassword(this.state.email, this.state.password, this.state.name, this.state.usertype);
-        this.restoreStates();
+        if (this.state.email === "" || this.state.password === "" || this.state.name === "" || this.state.usertype === "") {
+            alert("Please fill all the blanks");
+        } else {
+            createUserWithEmailAndPassword(this.state.email, this.state.password, this.state.name, this.state.usertype);
+            this.restoreStates();
+        }
     }
 
     handleSignInClick() {
@@ -72,7 +84,11 @@ export default class SignIn extends Component {
 
                     <label for="usertype" class = 'label'>User Type: (Admin or User)</label>
                     <br></br>
-                    <input type="text" name="usertype" id="usertype" onChange={this.handleInputChange}></input>
+                    {/* <input type="text" name="usertype" id="usertype" onChange={this.handleInputChange}></input>
+                    <br></br> */}
+
+                    <input type="Radio" name="usertype" value="user" id="userRadio" onClick={this.handleUserTypeClick} />User
+                    <input type="Radio" name="usertype" value="admin" id="adminRadio" onClick={this.handleUserTypeClick} />Admin               
                     <br></br>
 
                     <label for="password" class = 'label'>Password:</label>
