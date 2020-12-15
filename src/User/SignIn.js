@@ -15,6 +15,7 @@ export default class SignIn extends Component {
         this.state = {
             email: "",
             name: "",
+            usertype: "",
             password: ""
         }
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -27,10 +28,12 @@ export default class SignIn extends Component {
         this.setState({
             email: "",
             name: "",
+            usertype: "",
             password: "",
         });
         document.getElementById("email").value = "";
         document.getElementById("name").value = "";
+        document.getElementById("usertype").value = "";
         document.getElementById("password").value = "";
     }
 
@@ -40,7 +43,7 @@ export default class SignIn extends Component {
 
     handleSignUpClick() {
         console.log(this.state.email);
-        createUserWithEmailAndPassword(this.state.email, this.state.password, this.state.name);
+        createUserWithEmailAndPassword(this.state.email, this.state.password, this.state.name, this.state.usertype);
         this.restoreStates();
     }
 
@@ -65,6 +68,11 @@ export default class SignIn extends Component {
                     <label for="name" class = 'label'>Name:</label>
                     <br></br>
                     <input type="text" name="name" id="name" onChange={this.handleInputChange}></input>
+                    <br></br>
+
+                    <label for="usertype" class = 'label'>User Type: (Admin or User)</label>
+                    <br></br>
+                    <input type="text" name="usertype" id="usertype" onChange={this.handleInputChange}></input>
                     <br></br>
 
                     <label for="password" class = 'label'>Password:</label>

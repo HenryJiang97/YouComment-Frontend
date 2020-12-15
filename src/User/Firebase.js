@@ -18,11 +18,12 @@ let auth = app.auth();
 
 
 // Add new user to MongoDB
-function addNewUserToDB(id, email, name) {
+function addNewUserToDB(id, email, name, usertype) {
     Axios.post(userApiPrefix, {
         id: id,
         email: email,
         name: name,
+        usertype: usertype,
     })
     .then(function(response) {
         console.log("Added user to the db");
@@ -35,12 +36,12 @@ function addNewUserToDB(id, email, name) {
 
 // Firebase Auth APIs
 // Create user with email and password
-let createUserWithEmailAndPassword = (email, password, name) => {
+let createUserWithEmailAndPassword = (email, password, name, usertype) => {
     console.log(name);
     auth.createUserWithEmailAndPassword(email, password)
     .then((user) => {
         let info = `UID: ${user.user.uid}\nEmail: ${user.user.email}`;
-        addNewUserToDB(user.user.uid, email, name);
+        addNewUserToDB(user.user.uid, email, name, usertype);
         alert(`Signed up\nUser Info:\n${info}`);
     })
     .catch((error) => {
