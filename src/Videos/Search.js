@@ -86,7 +86,7 @@ class Search extends React.Component {
         return (
             <div class = 'Search'>
                 <div class = 'searchHeader'>
-                    <h1>Search for Videos</h1>
+                    <h1 class = 'searchh1'>Search for Videos</h1>
 
                     <div>
                         <input

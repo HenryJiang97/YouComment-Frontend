@@ -1,11 +1,23 @@
 .Home {
-    background: url(bg.jpg) no-repeat center center fixed; 
     height: 1000px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
 }
+
+@media (max-width: 480px) {
+    .Home {
+        background: url(bg-mobile.jpg) no-repeat center center fixed; 
+    }
+}
+
+@media (min-width: 1025px) {
+    .Home {
+        background: url(bg.jpg) no-repeat center center fixed; 
+   }
+}
+
 .header {
     padding: 60px;
     text-align: center;

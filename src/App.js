@@ -16,10 +16,14 @@ function App() {
   return (
     <div className = "App">
       <Navbar bg="dark" variant="dark">
+<<<<<<< HEAD
+        
+=======
         <Navbar.Brand href="/">YouComment</Navbar.Brand>
+>>>>>>> 93f6dd57841580ba7f7e9ebad96dc15325369382
         <Nav className="mr-auto">
           <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/login">Sign in / Sign out</Nav.Link>
+          <Nav.Link href="/login">Sign in/ out</Nav.Link>
           <Nav.Link href="/profile">Profile</Nav.Link>
           <Nav.Link href="/search">Search</Nav.Link>
         </Nav>
