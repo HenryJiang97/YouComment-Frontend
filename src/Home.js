@@ -39,7 +39,7 @@ export default class Home extends React.Component {
                 </div>
                 <div>
                     {
-                        this.state.video === null ? 
+                        this.state.video === null || this.state.video.length === 0 ? 
                         
                         null 
                         : 
