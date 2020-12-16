@@ -1,7 +1,10 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import Axios from 'axios';
-import {userApiPrefix} from '../Config';
+import {
+    userApiPrefix
+}
+from '../Config';
 
 // Firebase Auth configuration
 const config = {
