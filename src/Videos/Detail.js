@@ -72,6 +72,7 @@ class Detail extends React.Component {
 
     postComment(content, rating, videoId) {
         const that = this;
+
         Axios.post(
             commentApiPrefix, 
             {
@@ -83,13 +84,14 @@ class Detail extends React.Component {
               posterName: that.state.user.name
             }
           ).then(function() {
-              alert('successfully posted your comment');
+              
               that.setState({
                 showComments : '1',
               })
           })
           .catch(error => console.log(error))
           .then(function(){
+              alert('successfully posted your comment');
               that.setState({
                 content:'',
                 rating:'',

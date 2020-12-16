@@ -1,7 +1,10 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import Axios from 'axios';
-import {userApiPrefix} from '../Config';
+import {
+    userApiPrefix
+}
+from '../Config';
 
 // Firebase Auth configuration
 const config = {
@@ -42,6 +45,7 @@ let createUserWithEmailAndPassword = (email, password, name, usertype) => {
     .then((user) => {
         let info = `UID: ${user.user.uid}\nEmail: ${user.user.email}`;
         addNewUserToDB(user.user.uid, email, name, usertype);
+        addNewCommentListToDB(user.user.uid);
         alert(`Signed up\nUser Info:\n${info}`);
     })
     .catch((error) => {
