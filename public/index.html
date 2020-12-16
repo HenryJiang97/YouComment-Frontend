@@ -50,7 +50,7 @@
               });
             }).then(subscription => {
               // Send the subscription details to our server
-              fetch('https://you-comment-pwa.herokuapp.com:9999/register-push-device', {
+              fetch('https://you-comment-pwa.herokuapp.com/register-push-device', {
                 method: 'post',
                 headers: {
                   'Content-type': 'application/json'
