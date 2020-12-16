@@ -4,7 +4,7 @@
  const userApiPrefix = "https://you-comment-backend.herokuapp.com/api/user/";
 // const userApiPrefix = "http://localhost:3000/api/user/";
 
-const commentCountPrefix = "https://you-comment-backend.herokuapp.com/api/commentCount/";
+const commentCountApiPrefix = "https://you-comment-backend.herokuapp.com/api/commentCount/";
 // const commentCountApiPrefix = "http://localhost:3000/api/commentCount/";
 
 const youtubeApiKey = "AIzaSyCB0KooQ52eIZKR_kieRhEbrcGvbfBH-lg";
