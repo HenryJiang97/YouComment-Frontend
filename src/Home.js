@@ -8,7 +8,7 @@ export default class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            videoId: ''
+            video: null
         };
     }
 
@@ -22,7 +22,7 @@ export default class Home extends React.Component {
           .then(function (response){
               console.log(response.data);
               that.setState({
-                  videoId: response.data
+                  video: response.data
               })
           })
           .catch(function (error) {
@@ -39,20 +39,22 @@ export default class Home extends React.Component {
                 </div>
                 <div>
                     {
-                        this.state.videoId === '' ? 
+                        this.state.video === null ? 
                         
                         null 
                         : 
                         
-                        <div class = 'playerwraper'>
+                        <div>
                             <h4>The most commented video is: </h4>
-                            <ReactPlayer
-                                url={`https://www.youtube.com/watch?v=${this.state.videoId}`}
-                                fluid={false}
-                                width={480}
-                                height={272}
-                                position='center'
-                            />
+                            <div class = 'playerwraper'>
+                                <ReactPlayer
+                                    url={`https://www.youtube.com/watch?v=${this.state.video[0].videoId}`}
+                                    fluid={false}
+                                    width={480}
+                                    height={272}
+                                    position='center'
+                                />
+                            </div>
                         </div>
                     }
                     

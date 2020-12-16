@@ -16,14 +16,30 @@
     justify-content: center;
     align-items: center;
 }
-.tableCenter {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    color:rgb(57, 66, 27);
-    background-color: rgb(250, 223, 199);
-    
+
+@media (max-width: 480px) {
+    .tableCenter {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        color:rgb(57, 66, 27);
+        background-color: rgb(250, 223, 199);
+        font-size: 14px;
+    }
 }
+
+@media (min-width: 1025px) {
+    .tableCenter {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        color:rgb(57, 66, 27);
+        background-color: rgb(250, 223, 199);
+        font-size: 20px;
+    }
+}
+
+
 table, thead, tbody, th, td, tr {
     border: 1px solid black;
   }
