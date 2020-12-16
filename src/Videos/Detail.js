@@ -8,7 +8,10 @@ import Axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
 import {statusListener} from '../User/Firebase';
-import {commentApiPrefix} from '../Config';
+import {
+    commentApiPrefix, 
+    commentCountApiPrefix
+} from '../Config';
 import { Link } from 'react-router-dom';
 
 import './Detail.css';
@@ -32,6 +35,7 @@ class Detail extends React.Component {
         this.onContentChange = this.onContentChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onView = this.onView.bind(this);
+        this.updateCommentListCount = this.updateCommentListCount.bind(this);
     }
 
     getUser() {
@@ -70,6 +74,19 @@ class Detail extends React.Component {
         });
     }
 
+    updateCommentListCount(videoId) {
+        console.log("VIDEO ID", videoId);
+        Axios.put(
+            `${commentCountApiPrefix}add/${videoId}`
+        )
+        .then(function() {
+            console.log("Successfully updated CommentListCount");
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+    }
+
     postComment(content, rating, videoId) {
         const that = this;
 
@@ -84,10 +101,7 @@ class Detail extends React.Component {
               posterName: that.state.user.name
             }
           ).then(function() {
-              
-              that.setState({
-                showComments : '1',
-              })
+              that.updateCommentListCount(videoId);
           })
           .catch(error => console.log(error))
           .then(function(){
@@ -95,6 +109,7 @@ class Detail extends React.Component {
               that.setState({
                 content:'',
                 rating:'',
+                showComments : '1',
               })
               document.getElementById("content").value = "";
               document.getElementById("rating").value = "";
