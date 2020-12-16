@@ -45,7 +45,6 @@ let createUserWithEmailAndPassword = (email, password, name, usertype) => {
     .then((user) => {
         let info = `UID: ${user.user.uid}\nEmail: ${user.user.email}`;
         addNewUserToDB(user.user.uid, email, name, usertype);
-        addNewCommentListToDB(user.user.uid);
         alert(`Signed up\nUser Info:\n${info}`);
     })
     .catch((error) => {
