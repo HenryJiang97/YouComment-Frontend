@@ -5,18 +5,21 @@ export default class UserStatus extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: null
-        }
+            user: null,
+        };
     }
 
     componentDidMount() {
         statusListener(this);
     }
 
-
     render() {
         return (
-            <p>{this.state.user == null ? "Not signed in" : `Welcome, ${this.state.user.name}`}</p>
+            <p>
+                {this.state.user == null
+                    ? 'Not signed in'
+                    : `Welcome, ${this.state.user.name}`}
+            </p>
         );
     }
-};
+}

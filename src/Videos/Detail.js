@@ -1,5 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
 import React from 'react';
-import ReactPlayer from "react-player"
+import ReactPlayer from 'react-player';
 
 import { Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
@@ -7,11 +9,8 @@ import CommentList from './CommentList';
 import Axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-import {statusListener} from '../User/Firebase';
-import {
-    commentApiPrefix, 
-    commentCountApiPrefix
-} from '../Config';
+import { statusListener } from '../User/Firebase';
+import { commentApiPrefix, commentCountApiPrefix } from '../Config';
 import { Link } from 'react-router-dom';
 
 import './Detail.css';
@@ -22,11 +21,11 @@ class Detail extends React.Component {
         this.state = {
             user: undefined,
             video: this.props.location.query.video,
-            commentList:[],
-            content:'',
-            rating:'',
+            commentList: [],
+            content: '',
+            rating: '',
             showComments: '0',
-        }
+        };
 
         this.getUser();
         this.updateCommentList();
@@ -43,11 +42,10 @@ class Detail extends React.Component {
         console.log(this.state.user);
     }
 
-    
-    onView(){
+    onView() {
         this.setState({
-            showComments : '1',
-        })
+            showComments: '1',
+        });
     }
 
     onRatingChange(evt) {
@@ -60,76 +58,67 @@ class Detail extends React.Component {
 
     updateCommentList() {
         const that = this;
-        Axios.get(
-            `${commentApiPrefix}videoId/${this.state.video.videoId}`
-        )
-        .then(function (response){
-            // console.log(response.data);
-            that.setState({
-                commentList: response.data
+        Axios.get(`${commentApiPrefix}videoId/${this.state.video.videoId}`)
+            .then(function (response) {
+                // console.log(response.data);
+                that.setState({
+                    commentList: response.data,
+                });
             })
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     updateCommentListCount(videoId) {
-        console.log("VIDEO ID", videoId);
-        Axios.put(
-            `${commentCountApiPrefix}add/${videoId}`
-        )
-        .then(function() {
-            console.log("Successfully updated CommentListCount");
-        })
-        .catch(function(error) {
-            console.log(error);
-        })
+        console.log('VIDEO ID', videoId);
+        Axios.put(`${commentCountApiPrefix}add/${videoId}`)
+            .then(function () {
+                console.log('Successfully updated CommentListCount');
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     postComment(content, rating, videoId) {
         const that = this;
 
-        Axios.post(
-            commentApiPrefix, 
-            {
-              id: uuidv4(), //need to change later
-              rating: rating,
-              content: content,
-              videoId: videoId,
-              posterId: that.state.user.id,
-              posterName: that.state.user.name
-            }
-          ).then(function() {
-              that.updateCommentListCount(videoId);
-          })
-          .catch(error => console.log(error))
-          .then(function(){
-              alert('successfully posted your comment');
-              that.setState({
-                content:'',
-                rating:'',
-                showComments : '1',
-              })
-              document.getElementById("content").value = "";
-              document.getElementById("rating").value = "";
-              that.updateCommentList();
-          })
-
+        Axios.post(commentApiPrefix, {
+            id: uuidv4(), //need to change later
+            rating: rating,
+            content: content,
+            videoId: videoId,
+            posterId: that.state.user.id,
+            posterName: that.state.user.name,
+        })
+            .then(function () {
+                that.updateCommentListCount(videoId);
+            })
+            .catch(error => console.log(error))
+            .then(function () {
+                alert('successfully posted your comment');
+                that.setState({
+                    content: '',
+                    rating: '',
+                    showComments: '1',
+                });
+                document.getElementById('content').value = '';
+                document.getElementById('rating').value = '';
+                that.updateCommentList();
+            });
     }
 
     deleteComment(commentId) {
         const that = this;
-        Axios.delete(
-            `${commentApiPrefix}${commentId}`
-        )
-        .then(function(response) {
-            alert("Successfully deleted comment");
-            that.updateCommentList();
-        })
-        .catch(function(error) {
-            alert("Delete comment error");
-        });
+        Axios.delete(`${commentApiPrefix}${commentId}`)
+            .then(function () {
+                alert('Successfully deleted comment');
+                that.updateCommentList();
+            })
+            .catch(function () {
+                alert('Delete comment error');
+            });
     }
 
     onSubmit() {
@@ -137,44 +126,42 @@ class Detail extends React.Component {
         const content = this.state.content;
         const rating = this.state.rating;
         const videoId = this.state.video.videoId;
-        console.log(content+ '........' + rating + '.......'+videoId);
+        console.log(content + '........' + rating + '.......' + videoId);
         that.postComment(content, rating, videoId);
     }
-    
 
-    render () {
-        const video =this.state.video;
+    render() {
+        const video = this.state.video;
         const commentList = this.state.commentList;
         console.log(video);
         console.log(commentList);
 
-
         return (
-            <div class = 'Detail'>
+            <div className="Detail">
                 {/* Video player */}
                 <div>
-                    <h2 class = 'detailHeader'>Video</h2>
-                    <div class = 'playerwraper'>
+                    <h2 className="detailHeader">Video</h2>
+                    <div className="playerwraper">
                         <ReactPlayer
                             url={`https://www.youtube.com/watch?v=${video.videoId}`}
                             fluid={false}
                             width={480}
                             height={272}
-                            position='center'
+                            position="center"
                         />
                     </div>
                     <br></br>
                 </div>
-                
+
                 {/* Video details */}
                 <h3>Video Detail:</h3>
-                <div class = 'tableCenter'>
-                    <Table size = "sm" align = "center" class = 'tableCenter'>
+                <div className="tableCenter">
+                    <Table size="sm" align="center" class="tableCenter">
                         <thead>
                             <tr>
                                 <th>Info</th>
                                 <th>Value</th>
-                            </tr>    
+                            </tr>
                         </thead>
                         <tbody>
                             <tr>
@@ -201,77 +188,71 @@ class Detail extends React.Component {
                                 <td>Channel Id</td>
                                 <td>{video.channelId}</td>
                             </tr>
-                            
                         </tbody>
                     </Table>
                 </div>
-                
 
                 {/* Comments */}
-                <div class = 'center'>
+                <div className="center">
                     <h3>Comments</h3>
                     <div>
                         <Button onClick={this.onView}>View Comments</Button>
                     </div>
-                    {
-                        this.state.showComments === '1'
-                        ? 
-                            <CommentList
-                                videoId={this.state.video.videoId}
-                                commentList={this.state.commentList}
-                                deleteComment={(commentId) => this.deleteComment(commentId)}
-                            />
-                        : 
-                            null
-                    }
+                    {this.state.showComments === '1' ? (
+                        <CommentList
+                            videoId={this.state.video.videoId}
+                            commentList={this.state.commentList}
+                            deleteComment={commentId =>
+                                this.deleteComment(commentId)
+                            }
+                        />
+                    ) : null}
                 </div>
-                
 
                 {/* Leave comments */}
-                <div class = 'center'>
+                <div className="center">
                     <h4>Leave comments</h4>
                     {/* eslint-disable-next-line */}
                     {this.state.user == undefined
                     ?
                         (
+                        <div>
+                            <h4>You're not signed in</h4>
+                            <Link to="/login">
+                                <button>Go Sign In</button>
+                            </Link>
+                        </div>
+                    ) : (
+                        <div>
+                            <h5>New Comment:</h5>
                             <div>
-                                <h4>You're not signed in</h4>
-                                <Link to="/login">
-                                    <button>Go Sign In</button>
-                                </Link>
+                                Comment:
+                                <input
+                                    id="content"
+                                    onChange={this.onContentChange}></input>
                             </div>
-                        )
-                    :
-                        (
                             <div>
-                                <h5>New Comment:</h5>
-                                <div>Comment: 
-                                    <input
-                                            id="content"
-                                            onChange={this.onContentChange}></input>
-                                </div>
-                                <div>Rating(1~5):
-                                    <input
-                                            id="rating"
-                                            onChange={this.onRatingChange}></input>
-                                </div>
-                                <div>
-                                    <button onClick={this.onSubmit}>Submit</button>
-                                </div>
+                                Rating(1~5):
+                                <input
+                                    id="rating"
+                                    onChange={this.onRatingChange}></input>
                             </div>
-                        )
-                    }
+                            <div>
+                                <button onClick={this.onSubmit}>Submit</button>
+                            </div>
+                        </div>
+                    )}
                 </div>
-                
 
                 {/* Go Back */}
-                <Link to={{
-                    pathname: "/result",
-                    query: {
-                        videosList: this.props.location.query.videosList,
-                        searchWord: "",
-                    }
-                }}>
+                <Link
+                    to={{
+                        pathname: '/result',
+                        query: {
+                            videosList: this.props.location.query.videosList,
+                            searchWord: '',
+                        },
+                    }}>
                     <Button>Back</Button>
                 </Link>
             </div>
@@ -279,10 +260,4 @@ class Detail extends React.Component {
     }
 }
 
-
 export default Detail;
-
-
-
-
-               

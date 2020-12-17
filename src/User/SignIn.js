@@ -1,23 +1,22 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './Signin.css';
 // Firebase authentication module
 import {
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
 } from './Firebase';
 
 import Button from 'react-bootstrap/Button';
-
 
 export default class SignIn extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
-            name: "",
-            usertype: "",
-            password: ""
-        }
+            email: '',
+            name: '',
+            usertype: '',
+            password: '',
+        };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSignUpClick = this.handleSignUpClick.bind(this);
         this.handleSignInClick = this.handleSignInClick.bind(this);
@@ -27,34 +26,44 @@ export default class SignIn extends Component {
     // Restore states after button clicked
     restoreStates() {
         this.setState({
-            email: "",
-            name: "",
-            usertype: "",
-            password: "",
+            email: '',
+            name: '',
+            usertype: '',
+            password: '',
         });
-        document.getElementById("email").value = "";
-        document.getElementById("name").value = "";
-        document.getElementById("userRadio").checked = false;
-        document.getElementById("adminRadio").checked = false;
-        document.getElementById("password").value = "";
+        document.getElementById('email').value = '';
+        document.getElementById('name').value = '';
+        document.getElementById('userRadio').checked = false;
+        document.getElementById('adminRadio').checked = false;
+        document.getElementById('password').value = '';
     }
 
     handleInputChange(evt) {
-        this.setState({[evt.target.name]: evt.target.value});
+        this.setState({ [evt.target.name]: evt.target.value });
     }
 
     handleUserTypeClick() {
-        let chkUser = document.getElementById("userRadio");
+        let chkUser = document.getElementById('userRadio');
         this.setState({
-            usertype: chkUser.checked ? "User" : "Admin"
-        })
+            usertype: chkUser.checked ? 'User' : 'Admin',
+        });
     }
 
     handleSignUpClick() {
-        if (this.state.email === "" || this.state.password === "" || this.state.name === "" || this.state.usertype === "") {
-            alert("Please fill all the blanks");
+        if (
+            this.state.email === '' ||
+            this.state.password === '' ||
+            this.state.name === '' ||
+            this.state.usertype === ''
+        ) {
+            alert('Please fill all the blanks');
         } else {
-            createUserWithEmailAndPassword(this.state.email, this.state.password, this.state.name, this.state.usertype);
+            createUserWithEmailAndPassword(
+                this.state.email,
+                this.state.password,
+                this.state.name,
+                this.state.usertype
+            );
             this.restoreStates();
         }
     }
@@ -64,47 +73,80 @@ export default class SignIn extends Component {
         this.restoreStates();
     }
 
-
     render() {
         return (
-            <div class = 'Signin'>
-                <h1 class = 'headerSignIn'>Sign In</h1>
-                <div >
+            <div className="Signin">
+                <h1 className="headerSignIn">Sign In</h1>
+                <div>
                     {/* Account Info Form */}
-                    
-                    <label for="email" class = 'label'>Email:</label>
+                    <label htmlFor="email" className="label">
+                        Email:
+                    </label>
                     <br></br>
-                    <input type="email" name="email" id="email" onChange={this.handleInputChange}></input>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        onChange={this.handleInputChange}></input>
                     <br></br>
-
-                    <label for="name" class = 'label'>Name:</label>
+                    <label htmlFor="name" className="label">
+                        Name:
+                    </label>
                     <br></br>
-                    <input type="text" name="name" id="name" onChange={this.handleInputChange}></input>
+                    <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        onChange={this.handleInputChange}></input>
                     <br></br>
-
-                    <label for="usertype" class = 'label'>User Type: (Admin or User)</label>
+                    <label htmlFor="usertype" className="label">
+                        User Type: (Admin or User)
+                    </label>
                     <br></br>
                     {/* <input type="text" name="usertype" id="usertype" onChange={this.handleInputChange}></input>
                     <br></br> */}
-
-                    <input type="Radio" name="usertype" value="user" id="userRadio" onClick={this.handleUserTypeClick} />User
-                    <input type="Radio" name="usertype" value="admin" id="adminRadio" onClick={this.handleUserTypeClick} />Admin               
+                    <input
+                        type="Radio"
+                        name="usertype"
+                        value="user"
+                        id="userRadio"
+                        onClick={this.handleUserTypeClick}
+                    />
+                    User
+                    <input
+                        type="Radio"
+                        name="usertype"
+                        value="admin"
+                        id="adminRadio"
+                        onClick={this.handleUserTypeClick}
+                    />
+                    Admin
                     <br></br>
-
-                    <label for="password" class = 'label'>Password:</label>
+                    <label htmlFor="password" className="label">
+                        Password:
+                    </label>
                     <br></br>
-                    <input type="password" name="password" id="password" onChange={this.handleInputChange}></input>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        onChange={this.handleInputChange}></input>
                     <br></br>
-                    
                     <br></br>
                     <div>
-                        <Button variant="primary" onClick={this.handleSignUpClick}>SIGN UP</Button>
-                        <div class = 'divider' />
-                        <Button variant="success" onClick={this.handleSignInClick}>SIGN IN</Button>
+                        <Button
+                            variant="primary"
+                            onClick={this.handleSignUpClick}>
+                            SIGN UP
+                        </Button>
+                        <div className="divider" />
+                        <Button
+                            variant="success"
+                            onClick={this.handleSignInClick}>
+                            SIGN IN
+                        </Button>
                     </div>
                 </div>
-                
-                
             </div>
         );
     }
